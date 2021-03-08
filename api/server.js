@@ -1,7 +1,18 @@
-const express = require("express")
+const express = require("express");
+const carsRouter = require("./cars/cars-router");
+//const salesRouter = require("./sales/sales-router")
 
-const server = express()
+const server = express();
 
-// DO YOUR MAGIC
+server.use(express.json());
+server.use(carsRouter);
+//server.use(salesRouter)
 
-module.exports = server
+server.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).json({
+    massage: "something went wrong",
+  });
+});
+
+module.exports = server;
